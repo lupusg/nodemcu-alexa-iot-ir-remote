@@ -1,0 +1,3 @@
+#define SECRET_SSID "Home 2.4G"
+#define SECRET_PASS "nudauparola"
+#define SECRET_DEVICE_KEY "3SWGX8QH56DHUFYPNN7O"
