@@ -1,4 +1,4 @@
-#include "arduino-secrets.h"
+#include "iot-arduino-secrets.h"
 #include <ArduinoIoTCloud.h>
 #include <Arduino_ConnectionHandler.h>
 
@@ -11,11 +11,15 @@ const char kDeviceKey[]       		= SECRET_DEVICE_KEY;  // Secret device password
 void OnAcSwitchChange();
 
 CloudSwitch ac_switch;
+WiFiConnectionHandler ArduinoIoTPreferredConnection(kNetworkID, kPassword);
 
-void InitProperties(){
+void InitIotCloud(){
   ArduinoCloud.setBoardId(kDeviceLoginName);
   ArduinoCloud.setSecretDeviceKey(kDeviceKey);
   ArduinoCloud.addProperty(ac_switch, READWRITE, ON_CHANGE, OnAcSwitchChange);
+
+  ArduinoCloud.begin(ArduinoIoTPreferredConnection);
+  setDebugMessageLevel(2);
+  ArduinoCloud.printDebugInfo();
 }
 
-WiFiConnectionHandler ArduinoIoTPreferredConnection(kNetworkID, kPassword);
