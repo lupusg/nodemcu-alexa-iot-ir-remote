@@ -1,3 +1,13 @@
+/**
+ * @file iot-cloud-connection.h
+ *
+ * @brief The file that handles the connection to the IOT cloud.
+ *
+ * @date July 16, 2022
+ *
+ * @author Vlad-Marian Lupu
+ */
+
 #ifndef	NODEMCU_ALEXA_IOT_IR_REMOTE_INCLUDE_IOT_CLOUD_CONNECTION_H_
 #define NODEMCU_ALEXA_IOT_IR_REMOTE_INCLUDE_IOT_CLOUD_CONNECTION_H_
 
@@ -16,6 +26,9 @@ void OnAcSwitchChange();
 CloudSwitch ac_switch;
 WiFiConnectionHandler ArduinoIoTPreferredConnection(kNetworkID, kPassword);
 
+/**
+ * IOT Cloud initialization.
+ */
 void InitIotCloud(){
   ArduinoCloud.setBoardId(kDeviceLoginName);
   ArduinoCloud.setSecretDeviceKey(kDeviceKey);
