@@ -14,17 +14,23 @@
 #include "ir-receive.h"
 #include "http-server.h"
 
+extern bool receive;
+
 void setup() {
   delay(1000);
   Serial.begin(BAUD_RATE);
   InitAcSwitch();
   InitIotCloud();
-//  InitIrReceive();
-//  InitHttpServer();
+  InitIrReceive();
+  InitHttpServer();
 //  Serial.print(WiFi.status());
 }
 
 void loop() {
   ArduinoCloud.update();
-//  HttpServerLoop();
+  HttpServerLoop();
+
+  if(receive){
+	  getRawIrResult();
+  }
 }
