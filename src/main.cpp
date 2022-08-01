@@ -1,4 +1,10 @@
 /**
+ * NodeMCU Alexa IOT Infrared Remote
+ *
+ * Convert old devices that are not compatible
+ * with Alexa into compatible ones using infrared
+ * signals.
+ *
  * @file main.cpp
  *
  * @brief The file that handles the main program.
