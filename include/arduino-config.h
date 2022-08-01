@@ -1,4 +1,10 @@
 /**
+ * NodeMCU Alexa IOT Infrared Remote
+ *
+ * Convert old devices that are not compatible
+ * with Alexa into compatible ones using infrared
+ * signals.
+ *
  * @file arduino-config.h
  *
  * @brief Arduino configuration file that contains general arduino settings, pins etc.

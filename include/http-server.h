@@ -1,4 +1,10 @@
 /**
+ * NodeMCU Alexa IOT Infrared Remote
+ *
+ * Convert old devices that are not compatible
+ * with Alexa into compatible ones using infrared
+ * signals.
+ *
  * @file http-server.h
  *
  * @brief The file that handles the HTTP server.
@@ -17,7 +23,9 @@ ESP8266WebServer server(80);
 
 void HandleOnConnect();
 void HandleNotFound();
-void test();
+void StartReceiving();
+
+bool receive = false;
 
 /**
  * The WiFi connection & webserver setup.
@@ -36,10 +44,10 @@ void InitHttpServer() {
   Serial.println(WiFi.localIP());
 
   server.on("/", HandleOnConnect);
-  server.on("/test", test);
+  server.on("/startReceiving", StartReceiving);
   server.onNotFound(HandleNotFound);
   server.begin();
-  Serial.println("HTTP server started");
+  Serial.println("HTTP server started.");
 }
 
 /**
@@ -57,13 +65,19 @@ void HandleOnConnect() {
 }
 
 
-//TODO: Delete this one too.
 /**
  * The handler for the /test endpoint.
  */
-void test(){
-  Serial.println("works");
+void StartReceiving() {
+  receive = !receive;
+  if(receive){
+	  Serial.println("[HTTP]Receiving IR codes");
+  } else {
+	  Serial.println("[HTTP]Stopped receiving IR codes");
+  }
+  server.send(200, "text/plain", "received succesfully");
 }
+
 
 /**
  * The handler for the 404 not found endpoint.

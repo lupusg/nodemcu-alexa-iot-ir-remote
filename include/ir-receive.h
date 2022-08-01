@@ -1,4 +1,10 @@
 /**
+ * NodeMCU Alexa IOT Infrared Remote
+ *
+ * Convert old devices that are not compatible
+ * with Alexa into compatible ones using infrared
+ * signals.
+ *
  * @file ir-receive.h
  *
  * @brief IR remote receiver header file.
