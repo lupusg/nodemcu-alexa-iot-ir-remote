@@ -5,6 +5,8 @@
  * with Alexa into compatible ones using infrared
  * signals.
  *
+ * NodeMCU IOT Platform
+ *
  * @file ir-receive.h
  *
  * @brief IR remote receiver header file.

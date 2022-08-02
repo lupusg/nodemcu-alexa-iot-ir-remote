@@ -5,6 +5,8 @@
  * with Alexa into compatible ones using infrared
  * signals.
  *
+ * NodeMCU IOT Platform
+ *
  * @file arduino-config.h
  *
  * @brief Arduino configuration file that contains general arduino settings, pins etc.

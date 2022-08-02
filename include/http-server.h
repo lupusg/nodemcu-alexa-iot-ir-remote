@@ -5,6 +5,8 @@
  * with Alexa into compatible ones using infrared
  * signals.
  *
+ * NodeMCU IOT Platform
+ *
  * @file http-server.h
  *
  * @brief The file that handles the HTTP server.

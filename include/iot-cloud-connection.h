@@ -5,6 +5,8 @@
  * with Alexa into compatible ones using infrared
  * signals.
  *
+ * NodeMCU IOT Platform
+ *
  * @file iot-cloud-connection.h
  *
  * @brief The file that handles the connection to the IOT cloud.

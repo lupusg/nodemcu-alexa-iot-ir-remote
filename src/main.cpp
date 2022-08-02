@@ -5,6 +5,8 @@
  * with Alexa into compatible ones using infrared
  * signals.
  *
+ * NodeMCU IOT Platform
+ *
  * @file main.cpp
  *
  * @brief The file that handles the main program.

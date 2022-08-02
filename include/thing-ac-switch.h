@@ -5,6 +5,8 @@
  * with Alexa into compatible ones using infrared
  * signals.
  *
+ * NodeMCU IOT Platform
+ *
  * @file thing-ac-switch.h
  *
  * @brief The file that handles what the IOT AC Switch does.
