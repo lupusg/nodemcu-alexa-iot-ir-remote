@@ -29,6 +29,7 @@
 #include <IRtext.h>
 #include <IRutils.h>
 #include <IRsend.h>
+#include <http-server.h>
 
 #include "arduino-config.h"
 
@@ -90,23 +91,41 @@ decode_results results;
  */
 void InitIrReceive() {
 #if DECODE_HASH
-  ir_receiver.setUnknownThreshold(kMinUnknownSize);    		// Ignore messages with less than minimum on or off pulses.
-#endif                                                				// DECODE_HASH
-  ir_receiver.setTolerance(kTolerancePercentage);    		// Override the default tolerance.
-  ir_receiver.enableIRIn();                                			// Start the receiver
+  ir_receiver
+	  .setUnknownThreshold(kMinUnknownSize);            	// Ignore messages with less than minimum on or off pulses.
+#endif                                                          // DECODE_HASH
+  ir_receiver.setTolerance(kTolerancePercentage);        // Override the default tolerance.
+  ir_receiver.enableIRIn();                                     // Start the receiver
 }
 
 /**
- * Check if there is a IR signal received.
- * @return A pointer to a dynamically allocated uint16_t array.
+ * Receives the infrared signal and sends it to the RestAPI.
  */
-uint16_t* getRawIrResult() {
+void HandleIrResults() {
   if (ir_receiver.decode(&results)) {
+	uint16_t *ir_decoded_results = resultToRawArray(&results);
+	String output = "";
+
 	Serial.println(resultToSourceCode(&results));
+
+	for (unsigned short int index = 0; index < getCorrectedRawLength(&results); ++index) {
+	  output += ir_decoded_results[index];
+	  output += ' ';
+	}
+
+	http_client.begin(wifi_client, api_url);
+	http_client.addHeader("Content-Type", "text/plain");
+	int post_response = http_client.POST(output);
+	if(post_response > 0){
+	  Serial.println("[POST Request] Data was successfully sent.");
+	} else {
+	  Serial.println("[Post request] Error.");
+	}
+
+	Serial.println(output);
 	ir_receiver.resume();
-	return resultToRawArray(&results);
+	http_client.end();
   }
-  return nullptr;
 }
 
 #endif //NODEMCU_ALEXA_IOT_IR_REMOTE_INCLUDE_IR_RECEIVE_H_

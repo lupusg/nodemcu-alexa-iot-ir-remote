@@ -22,7 +22,7 @@
 #include "ir-receive.h"
 #include "http-server.h"
 
-extern bool receive;
+extern bool is_receiving;
 
 void setup() {
   delay(1000);
@@ -38,7 +38,7 @@ void loop() {
   ArduinoCloud.update();
   HttpServerLoop();
 
-  if(receive){
-	  getRawIrResult();
+  if(is_receiving){
+	HandleIrResults();
   }
 }
