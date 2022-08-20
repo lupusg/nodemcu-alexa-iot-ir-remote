@@ -22,15 +22,9 @@
 #ifndef NODEMCU_ALEXA_IOT_IR_REMOTE_INCLUDE_IR_RECEIVE_H_
 #define NODEMCU_ALEXA_IOT_IR_REMOTE_INCLUDE_IR_RECEIVE_H_
 
-#include <cassert>
 #include <IRrecv.h>
-#include <IRremoteESP8266.h>
-#include <IRac.h>
-#include <IRtext.h>
 #include <IRutils.h>
-#include <IRsend.h>
-#include <http-server.h>
-
+#include "http-server.h"
 #include "arduino-config.h"
 
 const uint16_t kCaptureBufferSize = 1024;
@@ -107,6 +101,7 @@ void HandleIrResults() {
 	String output = "";
 
 	Serial.println(resultToSourceCode(&results));
+	Serial.println(resultToHexidecimal(&results));
 
 	for (unsigned short int index = 0; index < getCorrectedRawLength(&results); ++index) {
 	  output += ir_decoded_results[index];
