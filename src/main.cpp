@@ -5,6 +5,8 @@
  * with Alexa into compatible ones using infrared
  * signals.
  *
+ * NodeMCU IOT Platform
+ *
  * @file main.cpp
  *
  * @brief The file that handles the main program.
@@ -15,20 +17,21 @@
  */
 
 #include <Arduino.h>
-#include "thing-ac-switch.h"
 #include "arduino-config.h"
-#include "ir-receive.h"
 #include "http-server.h"
+#include "iot-cloud-connection.h"
+#include "ir-receive.h"
+#include "ir-transmitter.h"
 
-extern bool receive;
+extern bool is_receiving;
 
 void setup() {
   delay(1000);
   Serial.begin(BAUD_RATE);
-  InitAcSwitch();
   InitIotCloud();
   InitIrReceive();
   InitHttpServer();
+  InitIrTransmitter();
 //  Serial.print(WiFi.status());
 }
 
@@ -36,7 +39,7 @@ void loop() {
   ArduinoCloud.update();
   HttpServerLoop();
 
-  if(receive){
-	  getRawIrResult();
+  if(is_receiving){
+	HandleIrResults();
   }
 }

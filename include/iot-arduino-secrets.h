@@ -5,6 +5,8 @@
  * with Alexa into compatible ones using infrared
  * signals.
  *
+ * NodeMCU IOT Platform
+ *
  * @file iot-arduino-secrets.h
  *
  * @brief Arduino IOT configuration file that contains secrets for the device.
