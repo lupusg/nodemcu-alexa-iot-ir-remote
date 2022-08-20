@@ -9,7 +9,7 @@
  *
  * @file http-server.h
  *
- * @brief The file that handles the HTTP server.
+ * @brief The HTTP server.
  *
  * @date July 21, 2022
  *
@@ -21,12 +21,13 @@
 
 #include <ESP8266WebServer.h>
 #include <ESP8266HTTPClient.h>
+#include "iot-arduino-secrets.h"
 
 ESP8266WebServer server(80);
 WiFiClient wifi_client;
 HTTPClient http_client;
 
-const char *api_url = "http://192.168.0.104:8081/test";
+const char *api_url = "http://192.168.0.104:8081/signal";
 
 void HandleOnConnect();
 void HandleNotFound();
@@ -39,9 +40,9 @@ bool is_receiving = false;
  */
 void InitHttpServer() {
   Serial.print("Connecting to ");
-  Serial.println(kNetworkID);
+  Serial.println(SECRET_SSID);
 
-  WiFi.begin(kNetworkID, kPassword);
+  WiFi.begin(SECRET_SSID, SECRET_PASS);
 
   while (WiFi.status() != WL_CONNECTED) {
 	delay(1000);
