@@ -17,20 +17,21 @@
  */
 
 #include <Arduino.h>
-#include "thing-ac-switch.h"
 #include "arduino-config.h"
-#include "ir-receive.h"
 #include "http-server.h"
+#include "iot-cloud-connection.h"
+#include "ir-receive.h"
+#include "ir-transmitter.h"
 
 extern bool is_receiving;
 
 void setup() {
   delay(1000);
   Serial.begin(BAUD_RATE);
-  InitAcSwitch();
   InitIotCloud();
   InitIrReceive();
   InitHttpServer();
+  InitIrTransmitter();
 //  Serial.print(WiFi.status());
 }
 

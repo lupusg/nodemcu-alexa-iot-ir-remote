@@ -22,5 +22,6 @@
 #define BAUD_RATE 115200       		//Baud rate for serial communication
 #define IR_TRANSMITTER_PIN 4   		//Pin for IR transmitter
 #define IR_RECEIVER_PIN 14			//Pin for IR receiver
+#define FREQUENCY 38				// IR transmitter frequency
 
 #endif //NODEMCU_ALEXA_IOT_IR_REMOTE_INCLUDE_ARDUINO_CONFIG_H_
