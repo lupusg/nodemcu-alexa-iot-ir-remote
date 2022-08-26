@@ -69,6 +69,7 @@ void StringSignalToRaw(String &data, uint16_t *&result) {
   unsigned int result_index = 0;
   String element;
 
+  free(result);
   result = (uint16_t *)malloc(sizeof(uint16_t) * kSignalLength);
 
   for (unsigned int index = 0; index < data.length() - 1; ++index) {
