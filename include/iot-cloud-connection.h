@@ -19,23 +19,17 @@
 #ifndef	NODEMCU_ALEXA_IOT_IR_REMOTE_INCLUDE_IOT_CLOUD_CONNECTION_H_
 #define NODEMCU_ALEXA_IOT_IR_REMOTE_INCLUDE_IOT_CLOUD_CONNECTION_H_
 
-#include "iot-arduino-secrets.h"
+#include "arduino-config.h"
 #include "custom-switches.h"
 
-const char kDeviceLoginName[]  = "79e87b3f-6747-44b2-8f50-c0149a3528c1";
-
-const char kNetworkID[]       		= SECRET_SSID;    	  // Network kNetworkID (name)
-const char kPassword[]        		= SECRET_PASS;        // Network password (use for WPA, or use as key for WEP)
-const char kDeviceKey[]       		= SECRET_DEVICE_KEY;  // Secret device password
-
-WiFiConnectionHandler ArduinoIoTPreferredConnection(kNetworkID, kPassword);
+WiFiConnectionHandler ArduinoIoTPreferredConnection(SECRET_SSID, SECRET_PASS);
 
 /**
  * IOT Cloud initialization.
  */
 void InitIotCloud(){
-  ArduinoCloud.setBoardId(kDeviceLoginName);
-  ArduinoCloud.setSecretDeviceKey(kDeviceKey);
+  ArduinoCloud.setBoardId(DEVICE_LOGIN_NAME);
+  ArduinoCloud.setSecretDeviceKey(SECRET_DEVICE_KEY);
 
   ArduinoCloud.addProperty(custom_switch1, READWRITE, ON_CHANGE, OnCustomSwitch1Change);
   ArduinoCloud.addProperty(custom_switch2, READWRITE, ON_CHANGE, OnCustomSwitch2Change);
