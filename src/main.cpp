@@ -22,6 +22,7 @@
 #include "iot-cloud-connection.h"
 #include "ir-receive.h"
 #include "ir-transmitter.h"
+#include "utils.h"
 
 extern bool is_receiving;
 
@@ -33,13 +34,15 @@ void setup() {
   InitHttpServer();
   InitIrTransmitter();
 //  Serial.print(WiFi.status());
+  LoginToAPI("vlad", "123", "http://46.101.246.223:8081/auth/login");
+
 }
 
 void loop() {
   ArduinoCloud.update();
   HttpServerLoop();
 
-  if(is_receiving){
+  if (is_receiving) {
 	HandleIrResults();
   }
 }

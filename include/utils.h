@@ -19,13 +19,13 @@
 #define NODEMCU_ALEXA_IOT_IR_REMOTE_INCLUDE_UTILS_H_
 
 /**
- * Gets the infrared signal that is assigned to a specific button.
+ * Gets the infrared signal associated with the specified button.
  * @param button_name The button name.
  * @return The infrared signal as a string.
  */
 String GetSignalString(String button_name) {
   String requested_data = "undefined";
-  String url = "http://192.168.0.104:8081/signal?switchName=" + button_name;
+  String url = "http://46.101.246.223:8081/signal?switchName=" + button_name;
   int http_response;
 
   http_client.begin(wifi_client, url);
@@ -82,6 +82,42 @@ void StringSignalToRaw(String &data, uint16_t *&result) {
 	  result[result_index++] = element.toInt();
 	}
   }
+}
+
+/**
+ * Makes a post request.
+ * @param payload The data.
+ * @param url The url.
+ */
+void PostRequest(String &payload, String &url) {
+  int response_code = 0;
+  String received_payload = "";
+
+  http_client.begin(wifi_client, url);
+  http_client.addHeader("Content-Type", "application/json");
+  response_code = http_client.POST(payload);
+
+  if (response_code > 0) {
+	Serial.printf("[POST Request] Data was successfully sent. (Code %d)\n", response_code);
+	received_payload = http_client.getString();
+	Serial.println("Received payload:\n<<");
+	Serial.println(received_payload);
+	Serial.println(">>");
+  } else {
+	Serial.printf("[POST request] Error. (Code %d)\n", response_code);
+  }
+  http_client.end();
+}
+
+/**
+ * Login into the restAPI.
+ * @param username The username.
+ * @param password The password.
+ * @param url The restAPI url.
+ */
+void LoginToAPI(String username, String password, String url) {
+  String payload = "{\"username\": \"" + username + "\",\"password\": \"" + password + "\"}";
+  PostRequest(payload, url);
 }
 
 #endif //NODEMCU_ALEXA_IOT_IR_REMOTE_INCLUDE_UTILS_H_
