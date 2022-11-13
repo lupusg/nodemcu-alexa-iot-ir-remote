@@ -30,7 +30,7 @@ ESP8266WebServer server(WEBSERVER_PORT);
 WiFiClient wifi_client;
 HTTPClient http_client;
 
-const char *api_url = "http://192.168.0.104:8081/signal";
+const char *api_url = "http://46.101.246.223:8081/signal";
 
 void ServerRouting();
 void HandleOnConnect();
