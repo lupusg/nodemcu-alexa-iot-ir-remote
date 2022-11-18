@@ -33,9 +33,8 @@ void setup() {
   InitIrReceive();
   InitHttpServer();
   InitIrTransmitter();
-//  Serial.print(WiFi.status());
-  LoginToAPI("vlad", "123", "http://46.101.246.223:8081/auth/login");
 
+  LoginToAPI(REST_API_USERNAME, REST_API_PASSWORD, API_LOGIN_URL);
 }
 
 void loop() {
