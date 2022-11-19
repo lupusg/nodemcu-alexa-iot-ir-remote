@@ -30,7 +30,8 @@ ESP8266WebServer server(WEBSERVER_PORT);
 WiFiClient wifi_client;
 HTTPClient http_client;
 
-const char *api_url = "http://46.101.246.223:8081/signal";
+const char *api_url = API_SIGNAL_URL;
+String cookie_token;
 
 void ServerRouting();
 void HandleOnConnect();
@@ -47,6 +48,10 @@ bool is_receiving = false;
  * WiFi connection & webserver setup.
  */
 void InitHttpServer() {
+  const char * header_keys[] = {
+	  "User-Agent","Set-Cookie","Cookie","Date","Content-Type","Connection"} ;
+  size_t header_keys_size = sizeof(header_keys)/sizeof(char*);
+
   Serial.print("Connecting to ");
   Serial.println(SECRET_SSID);
 
@@ -61,7 +66,9 @@ void InitHttpServer() {
   Serial.println(WiFi.localIP());
 
   ServerRouting();
-  server.collectHeaders("User-Agent", "Cookie");
+
+  http_client.collectHeaders(header_keys,header_keys_size);
+
   server.begin();
   Serial.println("HTTP server started.");
 }

@@ -18,6 +18,8 @@
 #ifndef NODEMCU_ALEXA_IOT_IR_REMOTE_INCLUDE_UTILS_H_
 #define NODEMCU_ALEXA_IOT_IR_REMOTE_INCLUDE_UTILS_H_
 
+void LoginToAPI(String username, String password, String url);
+
 /**
  * Gets the infrared signal associated with the specified button.
  * @param button_name The button name.
@@ -25,11 +27,12 @@
  */
 String GetSignalString(String button_name) {
   String requested_data = "undefined";
-  String url = "http://46.101.246.223:8081/signal?switchName=" + button_name;
+  String url = API_SWITCH_URL + button_name;
   int http_response;
 
   http_client.begin(wifi_client, url);
   http_client.addHeader("Content-Type", "text/plain");
+  http_client.addHeader("Cookie", cookie_token);
 
   http_response = http_client.GET();
   if (http_response > 0) {
@@ -85,17 +88,21 @@ void StringSignalToRaw(String &data, uint16_t *&result) {
 }
 
 /**
- * Makes a post request.
- * @param payload The data.
- * @param url The url.
+ * Login into the restAPI.
+ * @param username The username.
+ * @param password The password.
+ * @param url The restAPI url.
  */
-void PostRequest(String &payload, String &url) {
+void LoginToAPI(String username, String password, String url) {
   int response_code = 0;
   String received_payload = "";
+  String payload = "{\"username\": \"" + username + "\",\"password\": \"" + password + "\"}";
 
   http_client.begin(wifi_client, url);
   http_client.addHeader("Content-Type", "application/json");
   response_code = http_client.POST(payload);
+
+  cookie_token = http_client.header("Set-Cookie").c_str(); // update the token
 
   if (response_code > 0) {
 	Serial.printf("[POST Request] Data was successfully sent. (Code %d)\n", response_code);
@@ -104,20 +111,9 @@ void PostRequest(String &payload, String &url) {
 	Serial.println(received_payload);
 	Serial.println(">>");
   } else {
-	Serial.printf("[POST request] Error. (Code %d)\n", response_code);
+	Serial.printf("[POST Request] Error. (Code %d)\n", response_code);
   }
   http_client.end();
-}
-
-/**
- * Login into the restAPI.
- * @param username The username.
- * @param password The password.
- * @param url The restAPI url.
- */
-void LoginToAPI(String username, String password, String url) {
-  String payload = "{\"username\": \"" + username + "\",\"password\": \"" + password + "\"}";
-  PostRequest(payload, url);
 }
 
 #endif //NODEMCU_ALEXA_IOT_IR_REMOTE_INCLUDE_UTILS_H_
