@@ -68,6 +68,7 @@ void InitHttpServer() {
   ServerRouting();
 
   http_client.collectHeaders(header_keys,header_keys_size);
+  server.collectHeaders("Cookie", "Set-Cookie");
 
   server.begin();
   Serial.println("HTTP server started.");
