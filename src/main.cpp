@@ -22,7 +22,6 @@
 #include "iot-cloud-connection.h"
 #include "ir-receive.h"
 #include "ir-transmitter.h"
-#include "utils.h"
 
 extern bool is_receiving;
 
@@ -34,7 +33,7 @@ void setup() {
   InitHttpServer();
   InitIrTransmitter();
 
-  LoginToAPI(REST_API_USERNAME, REST_API_PASSWORD, API_LOGIN_URL);
+  LoginToApi(REST_API_USERNAME, REST_API_PASSWORD, API_LOGIN_URL);
 }
 
 void loop() {

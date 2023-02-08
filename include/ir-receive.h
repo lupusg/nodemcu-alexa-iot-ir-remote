@@ -25,6 +25,8 @@
 #include <IRrecv.h>
 #include <IRutils.h>
 #include "http-server.h"
+#include "utils.h"
+#include "services.h"
 #include "arduino-config.h"
 
 const uint16_t kCaptureBufferSize = 1024;
@@ -86,7 +88,7 @@ decode_results results;
 void InitIrReceive() {
 #if DECODE_HASH
   ir_receiver
-	  .setUnknownThreshold(kMinUnknownSize);            	// Ignore messages with less than minimum on or off pulses.
+	  .setUnknownThreshold(kMinUnknownSize);                // Ignore messages with less than minimum on or off pulses.
 #endif                                                          // DECODE_HASH
   ir_receiver.setTolerance(kTolerancePercentage);        // Override the default tolerance.
   ir_receiver.enableIRIn();                                     // Start the receiver
@@ -97,29 +99,14 @@ void InitIrReceive() {
  */
 void HandleIrResults() {
   if (ir_receiver.decode(&results)) {
-	uint16_t *ir_decoded_results = resultToRawArray(&results);
-	String output = "";
-
 	Serial.println(resultToSourceCode(&results));
 	Serial.println(resultToHexidecimal(&results));
 
-	for (unsigned short int index = 0; index < getCorrectedRawLength(&results); ++index) {
-	  output += ir_decoded_results[index];
-	  output += ' ';
-	}
+	String string_result = resultToString(results);
+	AddSignal(string_result);
+	Serial.println(string_result);
 
-	http_client.begin(wifi_client, api_url);
-	http_client.addHeader("Content-Type", "text/plain");
-	int post_response = http_client.POST(output);
-	if(post_response > 0){
-	  Serial.println("[POST Request] Data was successfully sent.");
-	} else {
-	  Serial.println("[Post request] Error.");
-	}
-
-	Serial.println(output);
 	ir_receiver.resume();
-	http_client.end();
   }
 }
 

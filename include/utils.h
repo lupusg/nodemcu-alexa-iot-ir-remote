@@ -18,7 +18,8 @@
 #ifndef NODEMCU_ALEXA_IOT_IR_REMOTE_INCLUDE_UTILS_H_
 #define NODEMCU_ALEXA_IOT_IR_REMOTE_INCLUDE_UTILS_H_
 
-void LoginToAPI(String username, String password, String url);
+#include <IRutils.h>
+#include <IRrecv.h>
 
 /**
  * Gets the infrared signal associated with the specified button.
@@ -88,32 +89,20 @@ void StringSignalToRaw(String &data, uint16_t *&result) {
 }
 
 /**
- * Login into the restAPI.
- * @param username The username.
- * @param password The password.
- * @param url The restAPI url.
+ * Converts the infrared signal from a raw array to a string.
+ * @param results The infrared signal.
+ * @return The infrared signal as a string.
  */
-void LoginToAPI(String username, String password, String url) {
-  int response_code = 0;
-  String received_payload = "";
-  String payload = "{\"username\": \"" + username + "\",\"password\": \"" + password + "\"}";
+String resultToString(decode_results &results) {
+  uint16_t *ir_decoded_results = resultToRawArray(&results);
+  String result = "[" + String(getCorrectedRawLength(&results)) + "]";
 
-  http_client.begin(wifi_client, url);
-  http_client.addHeader("Content-Type", "application/json");
-  response_code = http_client.POST(payload);
-
-  cookie_token = http_client.header("Set-Cookie").c_str(); // update the token
-
-  if (response_code > 0) {
-	Serial.printf("[POST Request] Data was successfully sent. (Code %d)\n", response_code);
-	received_payload = http_client.getString();
-	Serial.println("Received payload:\n<<");
-	Serial.println(received_payload);
-	Serial.println(">>");
-  } else {
-	Serial.printf("[POST Request] Error. (Code %d)\n", response_code);
+  for (unsigned short int index = 0; index < getCorrectedRawLength(&results); ++index) {
+	result += ir_decoded_results[index];
+	result += ' ';
   }
-  http_client.end();
+
+  return result;
 }
 
 #endif //NODEMCU_ALEXA_IOT_IR_REMOTE_INCLUDE_UTILS_H_
