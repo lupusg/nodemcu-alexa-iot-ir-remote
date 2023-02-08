@@ -28,19 +28,20 @@
 CloudSwitch custom_switch1, custom_switch2, custom_switch3, custom_switch4, custom_switch5, custom_switch6,
 	custom_switch7, custom_switch8, custom_switch9, custom_switch10;
 uint16_t *result;
+String signal_data;
 
 void OnCustomSwitch1Change() {
-  String payload = GetSignalString("custom_switch1");
+  signal_data = GetSignalData("custom_switch1");
 
-  StringSignalToRaw(payload, result);
-  ir_send.sendRaw(result, GetSignalLength(payload), FREQUENCY);
+  StringSignalToRaw(signal_data, result);
+  ir_send.sendRaw(result, GetSignalLength(signal_data), FREQUENCY);
 }
 
 void OnCustomSwitch2Change() {
-  String payload = GetSignalString("custom_switch2");
+  signal_data = GetSignalData("custom_switch2");
 
-  StringSignalToRaw(payload, result);
-  ir_send.sendRaw(result, GetSignalLength(payload), FREQUENCY);
+  StringSignalToRaw(signal_data, result);
+  ir_send.sendRaw(result, GetSignalLength(signal_data), FREQUENCY);
 }
 
 /*void OnCustomSwitch3Change(){

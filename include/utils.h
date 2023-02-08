@@ -26,7 +26,7 @@
  * @param button_name The button name.
  * @return The infrared signal as a string.
  */
-String GetSignalString(String button_name) {
+String GetSignalData(String button_name) {
   String requested_data = "undefined";
   String url = API_SWITCH_URL + button_name;
   int http_response;

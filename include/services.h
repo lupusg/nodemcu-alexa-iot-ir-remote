@@ -18,6 +18,10 @@
 #ifndef NODEMCU_ALEXA_IOT_IR_REMOTE_INCLUDE_SERVICES_H_
 #define NODEMCU_ALEXA_IOT_IR_REMOTE_INCLUDE_SERVICES_H_
 
+/**
+ * Sends the ir signal (as a string) to the restfulApi.
+ * @param signal The infrared signal.
+ */
 void AddSignal(String &signal){
   http_client.begin(wifi_client, API_SIGNAL_URL);
   http_client.addHeader("Content-Type", "text/plain");
