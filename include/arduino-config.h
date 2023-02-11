@@ -20,24 +20,31 @@
 #define NODEMCU_ALEXA_IOT_IR_REMOTE_INCLUDE_ARDUINO_CONFIG_H_
 
 // Board config
-#define BAUD_RATE 115200       		// Baud rate for serial communication
-#define IR_TRANSMITTER_PIN 4   		// Pin for IR transmitter
+#define BAUD_RATE 115200			// Baud rate for serial communication
+#define IR_TRANSMITTER_PIN 4		// Pin for IR transmitter
 #define IR_RECEIVER_PIN 14			// Pin for IR receiver
 #define FREQUENCY 38				// IR transmitter frequency
 
 // IOT Config
-#define SECRET_SSID ""							// SSID of the WiFi network
-#define SECRET_PASS ""							// Password of the WiFi network
-#define SECRET_DEVICE_KEY ""					// IOT Cloud Secret Device Key
-#define DEVICE_LOGIN_NAME ""    				// IOT Device ID
+#define SECRET_SSID ""								// SSID of the WiFi network
+#define SECRET_PASS ""								// Password of the WiFi network
+#define SECRET_DEVICE_KEY ""						// IOT Cloud Secret Device Key
+#define DEVICE_LOGIN_NAME ""						// IOT Device ID
 
 // Server config
 #define WEBSERVER_PORT 80
 
-// RestAPI config
+// Local RestAPI config
 #define API_URL ""
 #define API_USERNAME ""
 #define API_PASSWORD ""
+
+// RestAPI config (the main one)
+#define API_LOGIN_URL ""
+#define API_SWITCH_URL ""
+#define API_SIGNAL_URL ""
+#define REST_API_USERNAME ""
+#define REST_API_PASSWORD ""
 
 
 #endif //NODEMCU_ALEXA_IOT_IR_REMOTE_INCLUDE_ARDUINO_CONFIG_H_
