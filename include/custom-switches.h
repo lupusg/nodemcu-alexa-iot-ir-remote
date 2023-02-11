@@ -30,6 +30,7 @@ CloudSwitch custom_switch1, custom_switch2, custom_switch3, custom_switch4, cust
 uint16_t *result;
 
 void OnCustomSwitch1Change() {
+  DEBUG_PRINTLN("OnCustomSwitch1Change()");
   String signal_data = GetSignalData("custom_switch1");
 
   StringSignalToRaw(signal_data, result);
@@ -37,6 +38,7 @@ void OnCustomSwitch1Change() {
 }
 
 void OnCustomSwitch2Change() {
+  DEBUG_PRINTLN("OnCustomSwitch2Change()");
   String signal_data = GetSignalData("custom_switch2");
 
   StringSignalToRaw(signal_data, result);

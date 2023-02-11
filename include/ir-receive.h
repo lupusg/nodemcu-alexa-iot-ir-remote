@@ -99,12 +99,12 @@ void InitIrReceive() {
  */
 void HandleIrResults() {
   if (ir_receiver.decode(&results)) {
-	Serial.println(resultToSourceCode(&results));
-	Serial.println(resultToHexidecimal(&results));
+	DEBUG_PRINTLN(resultToSourceCode(&results));
+	DEBUG_PRINTLN(resultToHexidecimal(&results));
 
 	String string_result = resultToString(results);
 	AddSignal(string_result);
-	Serial.println(string_result);
+	DEBUG_PRINTLN(string_result);
 
 	ir_receiver.resume();
   }

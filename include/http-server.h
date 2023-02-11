@@ -52,18 +52,17 @@ void InitHttpServer() {
 	  "User-Agent","Set-Cookie","Cookie","Date","Content-Type","Connection"} ;
   size_t header_keys_size = sizeof(header_keys)/sizeof(char*);
 
-  Serial.print("Connecting to ");
-  Serial.println(SECRET_SSID);
+  DEBUG_PRINT("Connecting to ");
+  DEBUG_PRINTLN(SECRET_SSID);
 
   WiFi.begin(SECRET_SSID, SECRET_PASS);
 
   while (WiFi.status() != WL_CONNECTED) {
 	delay(1000);
-	Serial.print(".");
+	DEBUG_PRINT(".");
   }
-  Serial.println("Connected to WiFi.");
-  Serial.print("AP IP address: ");
-  Serial.println(WiFi.localIP());
+  DEBUG_PRINT("Connected to WiFi. AP IP address: ");
+  DEBUG_PRINTLN(WiFi.localIP());
 
   ServerRouting();
 
@@ -71,7 +70,7 @@ void InitHttpServer() {
   server.collectHeaders("Cookie", "Set-Cookie");
 
   server.begin();
-  Serial.println("HTTP server started.");
+  DEBUG_PRINTLN("HTTP server started.");
 }
 
 /**
@@ -110,9 +109,9 @@ void HandleToggleReceiving() {
   if (IsAuthenticated()) {
 	is_receiving = !is_receiving;
 	if (is_receiving) {
-	  Serial.println("[HTTP]Receiving IR codes");
+	  DEBUG_PRINTLN("[ToggleReceiving] Receiving IR codes");
 	} else {
-	  Serial.println("[HTTP]Stopped receiving IR codes");
+	  DEBUG_PRINTLN("[ToggleReceiving] Stopped receiving IR codes");
 	}
 	server.send(200, "text/plain", "Toggle successfully");
   }
@@ -130,17 +129,16 @@ void HandleNotFound() {
  * Stores the token 'ESPSESSIONID=sha1(username:password)' as a cookie.
  */
 void HandleLogin() {
-  Serial.println("Handle login");
   String message;
 
   if (server.hasHeader("Cookie")) {
-	Serial.print("Found cookie: ");
+	DEBUG_PRINT("Found cookie: ");
 	String cookie = server.header("Cookie");
-	Serial.println(cookie);
+	DEBUG_PRINTLN(cookie);
   }
 
   if (server.hasArg("username") && server.hasArg("password")) {
-	Serial.print("Found parameter: ");
+	DEBUG_PRINT("Found parameter: ");
 
 	if (server.arg("username") == String(API_USERNAME) && server.arg("password") == String(API_PASSWORD)) {
 	  server.sendHeader("Location", "/");
@@ -150,11 +148,11 @@ void HandleLogin() {
 	  server.sendHeader("Set-Cookie", "ESPSESSIONID=" + token);
 
 	  server.send(301);
-	  Serial.println("Log in Successful");
+	  DEBUG_PRINTLN("Log in Successful");
 	  return;
 	}
 	message = "Wrong username/password! try again.";
-	Serial.println("Log in Failed");
+	DEBUG_PRINTLN("Log in Failed");
 	server.sendHeader("Location", "/login.html?message=" + message);
 	server.sendHeader("Cache-Control", "no-cache");
 	server.send(301);
@@ -166,7 +164,7 @@ void HandleLogin() {
  * The logout handler.
  */
 void HandleLogout() {
-  Serial.println("Disconnection");
+  DEBUG_PRINTLN("Disconnected.");
   server.sendHeader("Location", "/login.html?msg=User disconnected");
   server.sendHeader("Cache-Control", "no-cache");
   server.sendHeader("Set-Cookie", "ESPSESSIONID=0");
@@ -178,20 +176,19 @@ void HandleLogout() {
  * @return True if it is, false otherwise.
  */
 bool IsAuthenticated() {
-  Serial.println("Enter is_authenticated");
   if (server.hasHeader("Cookie")) {
-	Serial.print("Found cookie: ");
+	DEBUG_PRINT("Found cookie: ");
 	String cookie = server.header("Cookie");
-	Serial.println(cookie);
+	DEBUG_PRINTLN(cookie);
 
 	String token = sha1(String(API_USERNAME) + ":" + String(API_PASSWORD));
 
 	if (cookie.indexOf("ESPSESSIONID=" + token) != -1) {
-	  Serial.println("Authentication Successful");
+	  DEBUG_PRINTLN("Authentication Successful");
 	  return true;
 	}
   }
-  Serial.println("Authentication Failed");
+  DEBUG_PRINTLN("Authentication Failed");
   server.send(401, F("application/json"), "({\"msg\": \"You must authenticate!\"})");
   return false;
 }

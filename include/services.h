@@ -28,9 +28,9 @@ void AddSignal(String &signal){
 
   int post_response = http_client.POST(signal);
   if (post_response > 0) {
-	Serial.println("[Services][POST] Data was successfully sent.");
+	DEBUG_PRINTLN("[AddSignal] Data was successfully sent.");
   } else {
-	Serial.println("[Services][POST] Error.");
+	DEBUG_PRINTLN("[AddSignal] Error.");
   }
   http_client.end();
 }
@@ -53,13 +53,17 @@ void LoginToApi(String username, String password, String url) {
   cookie_token = http_client.header("Set-Cookie").c_str(); // update the token
 
   if (response_code > 0) {
-	Serial.printf("[POST Request] Data was successfully sent. (Code %d)\n", response_code);
+	DEBUG_PRINT("[POST Request] Data was successfully sent. Code:");
+	DEBUG_PRINTLN(response_code);
+
 	received_payload = http_client.getString();
-	Serial.println("Received payload:\n<<");
-	Serial.println(received_payload);
-	Serial.println(">>");
+
+	DEBUG_PRINTLN("Received payload:\n<<");
+	DEBUG_PRINTLN(received_payload);
+	DEBUG_PRINTLN(">>");
   } else {
-	Serial.printf("[POST Request] Error. (Code %d)\n", response_code);
+	DEBUG_PRINT("[POST Request] Error. Code: ");
+	DEBUG_PRINT(response_code);
   }
   http_client.end();
 }
