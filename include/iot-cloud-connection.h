@@ -33,14 +33,14 @@ void InitIotCloud(){
 
   ArduinoCloud.addProperty(custom_switch1, READWRITE, ON_CHANGE, OnCustomSwitch1Change);
   ArduinoCloud.addProperty(custom_switch2, READWRITE, ON_CHANGE, OnCustomSwitch2Change);
-/*  ArduinoCloud.addProperty(custom_switch3, READWRITE, ON_CHANGE, OnCustomSwitch3Change);
+  ArduinoCloud.addProperty(custom_switch3, READWRITE, ON_CHANGE, OnCustomSwitch3Change);
   ArduinoCloud.addProperty(custom_switch4, READWRITE, ON_CHANGE, OnCustomSwitch4Change);
   ArduinoCloud.addProperty(custom_switch5, READWRITE, ON_CHANGE, OnCustomSwitch5Change);
   ArduinoCloud.addProperty(custom_switch6, READWRITE, ON_CHANGE, OnCustomSwitch6Change);
   ArduinoCloud.addProperty(custom_switch7, READWRITE, ON_CHANGE, OnCustomSwitch7Change);
   ArduinoCloud.addProperty(custom_switch8, READWRITE, ON_CHANGE, OnCustomSwitch8Change);
   ArduinoCloud.addProperty(custom_switch9, READWRITE, ON_CHANGE, OnCustomSwitch9Change);
-  ArduinoCloud.addProperty(custom_switch10, READWRITE, ON_CHANGE, OnCustomSwitch10Change);*/
+  ArduinoCloud.addProperty(custom_switch10, READWRITE, ON_CHANGE, OnCustomSwitch10Change);
 
   ArduinoCloud.begin(ArduinoIoTPreferredConnection);
   setDebugMessageLevel(4);

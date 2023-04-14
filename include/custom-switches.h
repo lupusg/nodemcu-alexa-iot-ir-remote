@@ -32,49 +32,142 @@ uint16_t *result;
 void OnCustomSwitch1Change() {
   DEBUG_PRINTLN("OnCustomSwitch1Change()");
   String signal_data = GetSignalData("custom_switch1");
+  if (signal_data != "undefined") {
+	DEBUG_PRINT(signal_data);
+	DEBUG_PRINTLN();
 
-  StringSignalToRaw(signal_data, result);
-  ir_send.sendRaw(result, GetSignalLength(signal_data), FREQUENCY);
+	StringSignalToRaw(signal_data, result);
+	ir_send.sendRaw(result, GetSignalLength(signal_data), FREQUENCY);
+  } else {
+	DEBUG_PRINTLN("Undefined signal data");
+  }
 }
 
 void OnCustomSwitch2Change() {
   DEBUG_PRINTLN("OnCustomSwitch2Change()");
   String signal_data = GetSignalData("custom_switch2");
+  if (signal_data != "undefined") {
+	DEBUG_PRINT(signal_data);
+	DEBUG_PRINTLN();
 
-  StringSignalToRaw(signal_data, result);
-  ir_send.sendRaw(result, GetSignalLength(signal_data), FREQUENCY);
+	StringSignalToRaw(signal_data, result);
+	ir_send.sendRaw(result, GetSignalLength(signal_data), FREQUENCY);
+  } else {
+	DEBUG_PRINTLN("Undefined signal data");
+  }
 }
 
-/*void OnCustomSwitch3Change(){
-  Serial.println("3");
+void OnCustomSwitch3Change() {
+  DEBUG_PRINTLN("OnCustomSwitch3Change()");
+  String signal_data = GetSignalData("custom_switch3");
+  DEBUG_PRINTLN(signal_data);
+  if (signal_data != "undefined") {
+	DEBUG_PRINT(signal_data);
+	DEBUG_PRINTLN();
+
+	StringSignalToRaw(signal_data, result);
+	ir_send.sendRaw(result, GetSignalLength(signal_data), FREQUENCY);
+  } else {
+	DEBUG_PRINTLN("Undefined signal data");
+  }
 }
 
-void OnCustomSwitch4Change(){
-  Serial.println("4");
+void OnCustomSwitch4Change() {
+  DEBUG_PRINTLN("OnCustomSwitch4Change()");
+  String signal_data = GetSignalData("custom_switch4");
+  if (signal_data != "undefined") {
+	DEBUG_PRINT(signal_data);
+	DEBUG_PRINTLN();
+
+	StringSignalToRaw(signal_data, result);
+	ir_send.sendRaw(result, GetSignalLength(signal_data), FREQUENCY);
+  } else {
+	DEBUG_PRINTLN("Undefined signal data");
+  }
 }
 
-void OnCustomSwitch5Change(){
-  Serial.println("5");
+void OnCustomSwitch5Change() {
+  DEBUG_PRINTLN("OnCustomSwitch5Change()");
+  String signal_data = GetSignalData("custom_switch5");
+  if (signal_data != "undefined") {
+	DEBUG_PRINT(signal_data);
+	DEBUG_PRINTLN();
+
+	StringSignalToRaw(signal_data, result);
+	ir_send.sendRaw(result, GetSignalLength(signal_data), FREQUENCY);
+  } else {
+	DEBUG_PRINTLN("Undefined signal data");
+  }
 }
 
-void OnCustomSwitch6Change(){
-  Serial.println("6");
+void OnCustomSwitch6Change() {
+  DEBUG_PRINTLN("OnCustomSwitch6Change()");
+  String signal_data = GetSignalData("custom_switch6");
+  if (signal_data != "undefined") {
+	DEBUG_PRINT(signal_data);
+	DEBUG_PRINTLN();
+
+	StringSignalToRaw(signal_data, result);
+	ir_send.sendRaw(result, GetSignalLength(signal_data), FREQUENCY);
+  } else {
+	DEBUG_PRINTLN("Undefined signal data");
+  }
 }
 
-void OnCustomSwitch7Change(){
-  Serial.println("7");
+void OnCustomSwitch7Change() {
+  DEBUG_PRINTLN("OnCustomSwitch7Change()");
+  String signal_data = GetSignalData("custom_switch7");
+  if (signal_data != "undefined") {
+	DEBUG_PRINT(signal_data);
+	DEBUG_PRINTLN();
+
+	StringSignalToRaw(signal_data, result);
+	ir_send.sendRaw(result, GetSignalLength(signal_data), FREQUENCY);
+  } else {
+	DEBUG_PRINTLN("Undefined signal data");
+  }
 }
 
-void OnCustomSwitch8Change(){
-  Serial.println("8");
+void OnCustomSwitch8Change() {
+  DEBUG_PRINTLN("OnCustomSwitch8Change()");
+  String signal_data = GetSignalData("custom_switch8");
+  if (signal_data != "undefined") {
+	DEBUG_PRINT(signal_data);
+	DEBUG_PRINTLN();
+
+	StringSignalToRaw(signal_data, result);
+	ir_send.sendRaw(result, GetSignalLength(signal_data), FREQUENCY);
+  } else {
+	DEBUG_PRINTLN("Undefined signal data");
+  }
 }
 
-void OnCustomSwitch9Change(){
-  Serial.println("9");
+void OnCustomSwitch9Change() {
+  DEBUG_PRINTLN("OnCustomSwitch9Change()");
+  String signal_data = GetSignalData("custom_switch9");
+  if (signal_data != "undefined") {
+	DEBUG_PRINT(signal_data);
+	DEBUG_PRINTLN();
+
+	StringSignalToRaw(signal_data, result);
+	ir_send.sendRaw(result, GetSignalLength(signal_data), FREQUENCY);
+  } else {
+	DEBUG_PRINTLN("Undefined signal data");
+  }
 }
 
-void OnCustomSwitch10Change(){
-  Serial.println("10");
-}*/
+void OnCustomSwitch10Change() {
+  DEBUG_PRINTLN("OnCustomSwitch10Change()");
+  String signal_data = GetSignalData("custom_switch10");
+  if (signal_data != "undefined") {
+	DEBUG_PRINT(signal_data);
+	DEBUG_PRINTLN();
+
+	StringSignalToRaw(signal_data, result);
+	ir_send.sendRaw(result, GetSignalLength(signal_data), FREQUENCY);
+  } else {
+	DEBUG_PRINTLN("Undefined signal data");
+  }
+}
 
 #endif //NODEMCU_ALEXA_IOT_IR_REMOTE_INCLUDE_CUSTOM_SWITCHES_H_
