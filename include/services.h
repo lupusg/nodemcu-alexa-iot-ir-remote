@@ -25,6 +25,7 @@
 void AddSignal(String &signal){
   http_client.begin(wifi_client, API_SIGNAL_URL);
   http_client.addHeader("Content-Type", "text/plain");
+  http_client.addHeader("Cookie", cookie_token);
 
   int post_response = http_client.POST(signal);
   if (post_response > 0) {

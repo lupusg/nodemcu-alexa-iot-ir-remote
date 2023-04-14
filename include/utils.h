@@ -33,10 +33,11 @@ String GetSignalData(String button_name) {
 
   http_client.begin(wifi_client, url);
   http_client.addHeader("Content-Type", "text/plain");
+  DEBUG_PRINTLN(cookie_token);
   http_client.addHeader("Cookie", cookie_token);
 
   http_response = http_client.GET();
-  if (http_response > 0) {
+  if (http_response == 200) {
 	requested_data = http_client.getString();
   }
   http_client.end();
