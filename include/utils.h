@@ -22,17 +22,19 @@
 #include <IRrecv.h>
 
 /**
- * Gets the infrared signal associated with the specified button.
- * @param button_name The button name.
- * @return The infrared signal as a string.
+ * Gets the infrared signal associated with the specified switch.
+ * @param switch_name Switch name.
+ * @return Infrared signal as a string.
  */
-String GetSignalData(String button_name) {
-  String requested_data = "undefined";
-  String url = API_SWITCH_URL + button_name;
+const char *GetSignalData(const char *switch_name) {
   int http_response;
+  String requested_data; // TODO: lookup for static string arduino
+
+  String url(API_SWITCH_URL);
+  url += switch_name;
 
   http_client.begin(wifi_client, url);
-  http_client.addHeader("Content-Type", "text/plain");
+  http_client.addHeader("Content-Type", F("text/plain"));
   DEBUG_PRINTLN(cookie_token);
   http_client.addHeader("Cookie", cookie_token);
 
@@ -41,52 +43,44 @@ String GetSignalData(String button_name) {
 	requested_data = http_client.getString();
   }
   http_client.end();
-  return requested_data;
+  return requested_data.c_str();
 }
 
 /**
  * Gets the signal length from the beginning of the infrared signal string.
  * E.g [signal_Length]5543 483 2838 1239 2493...
- * @param data The infrared signal.
- * @return The signal length.
+ * @param data Infrared signal.
+ * @return Infrared signal length.
  */
-unsigned int GetSignalLength(String &data) {
-  String result;
-
-  for (unsigned int index = 0; index < data.length() - 1; ++index) {
-	if (data[index] == ']') {
-	  result = data.substring(1, index);
-	  return result.toInt();
-	}
+uint16_t GetSignalLength(const char *data) {
+  const char *closing_bracket = strchr(data, ']');
+  if (closing_bracket != nullptr) {
+	return atoi(data + 1);
   }
   return 0;
 }
 
 /**
  * Converts the infrared signal from string to a uint16_t dynamically allocated array.
- * @param data The infrared signal as a string.
- * @param result The infrared signal as a dynamically allocated uint16_t array.
+ * @param data Infrared signal as a string.
+ * @param result Infrared signal as a dynamically allocated uint16_t array.
+ * @param length Infrared signal length.
  */
-void StringSignalToRaw(String &data, uint16_t *&result) {
-  const unsigned int kSignalLength = GetSignalLength(data);
-  unsigned int last_delimiter_position = 0;
-  unsigned int elements_counter = 0;
+void StringSignalToRaw(const char *data, uint16_t *&result, uint16_t &length) {
   unsigned int result_index = 0;
-  String element;
 
+  length = GetSignalLength(data);
   free(result);
-  result = (uint16_t *)malloc(sizeof(uint16_t) * kSignalLength);
+  result = (uint16_t *)malloc(sizeof(uint16_t) * length);
 
-  for (unsigned int index = 0; index < data.length() - 1; ++index) {
-	if (data[index] == ']') {
-	  last_delimiter_position = index + 1;
-	} else if (data[index] == ' ') {
-	  element = data.substring(last_delimiter_position, index);
-	  last_delimiter_position = index + 1;
-	  elements_counter++;
-	  result[result_index++] = element.toInt();
-	}
+  char *data_copy = strdup(data);
+  char *token = strtok(data_copy, "]");
+  token = strtok(nullptr, " "); // skip the size
+  while (token != nullptr) {
+	result[result_index++] = atoi(token);
+	token = strtok(nullptr, " ");
   }
+  free(data_copy);
 }
 
 /**
@@ -94,12 +88,15 @@ void StringSignalToRaw(String &data, uint16_t *&result) {
  * @param results The infrared signal.
  * @return The infrared signal as a string.
  */
-String resultToString(decode_results &results) {
-  uint16_t *ir_decoded_results = resultToRawArray(&results);
-  String result = "[" + String(getCorrectedRawLength(&results)) + "]";
+String ResultsToString(decode_results &results) {
+  const uint16_t kResultsLength = getCorrectedRawLength(&results);
+  uint16_t *decoded_results_arr = resultToRawArray(&results);
+  String result("[");
+  result += String(kResultsLength);
+  result += "]";
 
-  for (unsigned short int index = 0; index < getCorrectedRawLength(&results); ++index) {
-	result += ir_decoded_results[index];
+  for (uint16_t index = 0; index < kResultsLength; ++index) {
+	result += decoded_results_arr[index];
 	result += ' ';
   }
 

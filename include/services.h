@@ -19,10 +19,10 @@
 #define NODEMCU_ALEXA_IOT_IR_REMOTE_INCLUDE_SERVICES_H_
 
 /**
- * Sends the ir signal (as a string) to the restfulApi.
+ * Sends the infrared signal (as a string) to the restful api.
  * @param signal The infrared signal.
  */
-void AddSignal(String &signal){
+void AddSignal(String &signal) {
   http_client.begin(wifi_client, API_SIGNAL_URL);
   http_client.addHeader("Content-Type", "text/plain");
   http_client.addHeader("Cookie", cookie_token);
@@ -44,8 +44,12 @@ void AddSignal(String &signal){
  */
 void LoginToApi(String username, String password, String url) {
   int response_code = 0;
-  String received_payload = "";
-  String payload = "{\"username\": \"" + username + "\",\"password\": \"" + password + "\"}";
+  String received_payload;
+  String payload(R"({"username": ")");
+  payload += username;
+  payload += R"(","password": ")";
+  payload += password;
+  payload += R"("})";
 
   http_client.begin(wifi_client, url);
   http_client.addHeader("Content-Type", "application/json");

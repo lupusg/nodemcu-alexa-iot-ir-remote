@@ -102,7 +102,7 @@ void HandleIrResults() {
 	DEBUG_PRINTLN(resultToSourceCode(&results));
 	DEBUG_PRINTLN(resultToHexidecimal(&results));
 
-	String string_result = resultToString(results);
+	String string_result = ResultsToString(results);
 	AddSignal(string_result);
 	DEBUG_PRINTLN(string_result);
 

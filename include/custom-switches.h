@@ -31,142 +31,151 @@ uint16_t *result;
 
 void OnCustomSwitch1Change() {
   DEBUG_PRINTLN("OnCustomSwitch1Change()");
-  String signal_data = GetSignalData("custom_switch1");
-  if (signal_data != "undefined") {
-	DEBUG_PRINT(signal_data);
-	DEBUG_PRINTLN();
+  const char *signal_data = GetSignalData("custom_switch1");
+  uint16_t signal_length;
 
-	StringSignalToRaw(signal_data, result);
-	ir_send.sendRaw(result, GetSignalLength(signal_data), FREQUENCY);
+  if (signal_data != nullptr) {
+	DEBUG_PRINTLN(signal_data);
+
+	StringSignalToRaw(signal_data, result, signal_length);
+	ir_send.sendRaw(result, signal_length, FREQUENCY);
   } else {
-	DEBUG_PRINTLN("Undefined signal data");
+	DEBUG_PRINTLN(F("Undefined signal data"));
   }
 }
 
 void OnCustomSwitch2Change() {
   DEBUG_PRINTLN("OnCustomSwitch2Change()");
-  String signal_data = GetSignalData("custom_switch2");
-  if (signal_data != "undefined") {
-	DEBUG_PRINT(signal_data);
-	DEBUG_PRINTLN();
+  const char *signal_data = GetSignalData("custom_switch2");
+  uint16_t signal_length;
 
-	StringSignalToRaw(signal_data, result);
-	ir_send.sendRaw(result, GetSignalLength(signal_data), FREQUENCY);
+  if (signal_data != nullptr) {
+	DEBUG_PRINTLN(signal_data);
+
+	StringSignalToRaw(signal_data, result, signal_length);
+	ir_send.sendRaw(result, signal_length, FREQUENCY);
   } else {
-	DEBUG_PRINTLN("Undefined signal data");
+	DEBUG_PRINTLN(F("Undefined signal data"));
   }
 }
 
 void OnCustomSwitch3Change() {
   DEBUG_PRINTLN("OnCustomSwitch3Change()");
-  String signal_data = GetSignalData("custom_switch3");
-  DEBUG_PRINTLN(signal_data);
-  if (signal_data != "undefined") {
-	DEBUG_PRINT(signal_data);
-	DEBUG_PRINTLN();
+  const char *signal_data = GetSignalData("custom_switch3");
+  uint16_t signal_length;
 
-	StringSignalToRaw(signal_data, result);
-	ir_send.sendRaw(result, GetSignalLength(signal_data), FREQUENCY);
+  if (signal_data != nullptr) {
+	DEBUG_PRINTLN(signal_data);
+
+	StringSignalToRaw(signal_data, result, signal_length);
+	ir_send.sendRaw(result, signal_length, FREQUENCY);
   } else {
-	DEBUG_PRINTLN("Undefined signal data");
+	DEBUG_PRINTLN(F("Undefined signal data"));
   }
 }
 
 void OnCustomSwitch4Change() {
   DEBUG_PRINTLN("OnCustomSwitch4Change()");
-  String signal_data = GetSignalData("custom_switch4");
-  if (signal_data != "undefined") {
-	DEBUG_PRINT(signal_data);
-	DEBUG_PRINTLN();
+  const char *signal_data = GetSignalData("custom_switch4");
+  uint16_t signal_length;
 
-	StringSignalToRaw(signal_data, result);
-	ir_send.sendRaw(result, GetSignalLength(signal_data), FREQUENCY);
+  if (signal_data != nullptr) {
+	DEBUG_PRINTLN(signal_data);
+
+	StringSignalToRaw(signal_data, result, signal_length);
+	ir_send.sendRaw(result, signal_length, FREQUENCY);
   } else {
-	DEBUG_PRINTLN("Undefined signal data");
+	DEBUG_PRINTLN(F("Undefined signal data"));
   }
 }
 
 void OnCustomSwitch5Change() {
   DEBUG_PRINTLN("OnCustomSwitch5Change()");
-  String signal_data = GetSignalData("custom_switch5");
-  if (signal_data != "undefined") {
-	DEBUG_PRINT(signal_data);
-	DEBUG_PRINTLN();
+  const char *signal_data = GetSignalData("custom_switch5");
+  uint16_t signal_length;
 
-	StringSignalToRaw(signal_data, result);
-	ir_send.sendRaw(result, GetSignalLength(signal_data), FREQUENCY);
+  if (signal_data != nullptr) {
+	DEBUG_PRINTLN(signal_data);
+
+	StringSignalToRaw(signal_data, result, signal_length);
+	ir_send.sendRaw(result, signal_length, FREQUENCY);
   } else {
-	DEBUG_PRINTLN("Undefined signal data");
+	DEBUG_PRINTLN(F("Undefined signal data"));
   }
 }
 
 void OnCustomSwitch6Change() {
   DEBUG_PRINTLN("OnCustomSwitch6Change()");
-  String signal_data = GetSignalData("custom_switch6");
-  if (signal_data != "undefined") {
-	DEBUG_PRINT(signal_data);
-	DEBUG_PRINTLN();
+  const char *signal_data = GetSignalData("custom_switch6");
+  uint16_t signal_length;
 
-	StringSignalToRaw(signal_data, result);
-	ir_send.sendRaw(result, GetSignalLength(signal_data), FREQUENCY);
+  if (signal_data != nullptr) {
+	DEBUG_PRINTLN(signal_data);
+
+	StringSignalToRaw(signal_data, result, signal_length);
+	ir_send.sendRaw(result, signal_length, FREQUENCY);
   } else {
-	DEBUG_PRINTLN("Undefined signal data");
+	DEBUG_PRINTLN(F("Undefined signal data"));
   }
 }
 
 void OnCustomSwitch7Change() {
   DEBUG_PRINTLN("OnCustomSwitch7Change()");
-  String signal_data = GetSignalData("custom_switch7");
-  if (signal_data != "undefined") {
-	DEBUG_PRINT(signal_data);
-	DEBUG_PRINTLN();
+  const char *signal_data = GetSignalData("custom_switch7");
+  uint16_t signal_length;
 
-	StringSignalToRaw(signal_data, result);
-	ir_send.sendRaw(result, GetSignalLength(signal_data), FREQUENCY);
+  if (signal_data != nullptr) {
+	DEBUG_PRINTLN(signal_data);
+
+	StringSignalToRaw(signal_data, result, signal_length);
+	ir_send.sendRaw(result, signal_length, FREQUENCY);
   } else {
-	DEBUG_PRINTLN("Undefined signal data");
+	DEBUG_PRINTLN(F("Undefined signal data"));
   }
 }
 
 void OnCustomSwitch8Change() {
   DEBUG_PRINTLN("OnCustomSwitch8Change()");
-  String signal_data = GetSignalData("custom_switch8");
-  if (signal_data != "undefined") {
-	DEBUG_PRINT(signal_data);
-	DEBUG_PRINTLN();
+  const char *signal_data = GetSignalData("custom_switch8");
+  uint16_t signal_length;
 
-	StringSignalToRaw(signal_data, result);
-	ir_send.sendRaw(result, GetSignalLength(signal_data), FREQUENCY);
+  if (signal_data != nullptr) {
+	DEBUG_PRINTLN(signal_data);
+
+	StringSignalToRaw(signal_data, result, signal_length);
+	ir_send.sendRaw(result, signal_length, FREQUENCY);
   } else {
-	DEBUG_PRINTLN("Undefined signal data");
+	DEBUG_PRINTLN(F("Undefined signal data"));
   }
 }
 
 void OnCustomSwitch9Change() {
   DEBUG_PRINTLN("OnCustomSwitch9Change()");
-  String signal_data = GetSignalData("custom_switch9");
-  if (signal_data != "undefined") {
-	DEBUG_PRINT(signal_data);
-	DEBUG_PRINTLN();
+  const char *signal_data = GetSignalData("custom_switch9");
+  uint16_t signal_length;
 
-	StringSignalToRaw(signal_data, result);
-	ir_send.sendRaw(result, GetSignalLength(signal_data), FREQUENCY);
+  if (signal_data != nullptr) {
+	DEBUG_PRINTLN(signal_data);
+
+	StringSignalToRaw(signal_data, result, signal_length);
+	ir_send.sendRaw(result, signal_length, FREQUENCY);
   } else {
-	DEBUG_PRINTLN("Undefined signal data");
+	DEBUG_PRINTLN(F("Undefined signal data"));
   }
 }
 
 void OnCustomSwitch10Change() {
   DEBUG_PRINTLN("OnCustomSwitch10Change()");
-  String signal_data = GetSignalData("custom_switch10");
-  if (signal_data != "undefined") {
-	DEBUG_PRINT(signal_data);
-	DEBUG_PRINTLN();
+  const char *signal_data = GetSignalData("custom_switch10");
+  uint16_t signal_length;
 
-	StringSignalToRaw(signal_data, result);
-	ir_send.sendRaw(result, GetSignalLength(signal_data), FREQUENCY);
+  if (signal_data != nullptr) {
+	DEBUG_PRINTLN(signal_data);
+
+	StringSignalToRaw(signal_data, result, signal_length);
+	ir_send.sendRaw(result, signal_length, FREQUENCY);
   } else {
-	DEBUG_PRINTLN("Undefined signal data");
+	DEBUG_PRINTLN(F("Undefined signal data"));
   }
 }
 
