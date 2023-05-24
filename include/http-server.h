@@ -1,37 +1,12 @@
-/**
- * NodeMCU Alexa IOT Infrared Remote
- *
- * Convert old devices that are not compatible
- * with Alexa into compatible ones using infrared
- * signals.
- *
- * NodeMCU IOT Platform
- *
- * @file http-server.h
- *
- * @brief The HTTP server.
- * 		  API Auth adapted from https://www.mischianti.org/2020/11/17/web-server-on-esp8266-add-secure-rest-back-end-5/
- *
- * @date July 21, 2022
- *
- * @author Vlad-Marian Lupu
- */
-
 #ifndef NODEMCU_ALEXA_IOT_IR_REMOTE_INCLUDE_HTTP_SERVER_H_
 #define NODEMCU_ALEXA_IOT_IR_REMOTE_INCLUDE_HTTP_SERVER_H_
 
 #include <ESP8266WebServer.h>
-#include <ESP8266HTTPClient.h>
-#include <Arduino_DebugUtils.h>
 #include <Hash.h>
-#include "arduino-config.h"
+
+#include "config.h"
 
 ESP8266WebServer server(WEBSERVER_PORT);
-WiFiClient wifi_client;
-HTTPClient http_client;
-
-const char *api_url = API_SIGNAL_URL;
-String cookie_token;
 
 void ServerRouting();
 void HandleOnConnect();
@@ -48,28 +23,11 @@ bool is_receiving = false;
  * WiFi connection & webserver setup.
  */
 void InitHttpServer() {
-  const char * header_keys[] = {
-	  "User-Agent","Set-Cookie","Cookie","Date","Content-Type","Connection"} ;
-  size_t header_keys_size = sizeof(header_keys)/sizeof(char*);
-
-  DEBUG_PRINT("Connecting to ");
-  DEBUG_PRINTLN(SECRET_SSID);
-
-  WiFi.begin(SECRET_SSID, SECRET_PASS);
-
-  while (WiFi.status() != WL_CONNECTED) {
-	delay(1000);
-	DEBUG_PRINT(".");
-  }
-  DEBUG_PRINT("Connected to WiFi. AP IP address: ");
-  DEBUG_PRINTLN(WiFi.localIP());
-
   ServerRouting();
 
-  http_client.collectHeaders(header_keys,header_keys_size);
   server.collectHeaders("Cookie", "Set-Cookie");
-
   server.begin();
+
   DEBUG_PRINTLN("HTTP server started.");
 }
 
