@@ -11,23 +11,23 @@
  *
  * @brief The file that handles the connection to the IOT cloud.
  *
- * @date July 16, 2022
- *
  * @author Vlad-Marian Lupu
+ *
+ * @date July 16, 2022
  */
 
-#ifndef	NODEMCU_ALEXA_IOT_IR_REMOTE_INCLUDE_IOT_CLOUD_CONNECTION_H_
-#define NODEMCU_ALEXA_IOT_IR_REMOTE_INCLUDE_IOT_CLOUD_CONNECTION_H_
+#ifndef NODEMCU_ALEXA_IOT_IR_REMOTE_INCLUDE_ARDUINO_IOT_CLOUD_H_
+#define NODEMCU_ALEXA_IOT_IR_REMOTE_INCLUDE_ARDUINO_IOT_CLOUD_H_
 
-#include "arduino-config.h"
-#include "custom-switches.h"
+#include "config.h"
+#include "iot-custom-switches.h"
 
 WiFiConnectionHandler ArduinoIoTPreferredConnection(SECRET_SSID, SECRET_PASS);
 
 /**
  * IOT Cloud initialization.
  */
-void InitIotCloud(){
+void InitArduinoIotCloud(){
   ArduinoCloud.setBoardId(DEVICE_LOGIN_NAME);
   ArduinoCloud.setSecretDeviceKey(SECRET_DEVICE_KEY);
 
@@ -47,4 +47,4 @@ void InitIotCloud(){
   ArduinoCloud.printDebugInfo();
 }
 
-#endif //NODEMCU_ALEXA_IOT_IR_REMOTE_INCLUDE_IOT_CLOUD_CONNECTION_H_
+#endif //NODEMCU_ALEXA_IOT_IR_REMOTE_INCLUDE_ARDUINO_IOT_CLOUD_H_
