@@ -19,11 +19,12 @@
 #define NODEMCU_ALEXA_IOT_IR_REMOTE_INCLUDE_IR_TRANSMITTER_H_
 
 #include <IRsend.h>
+#include "config.h"
 
 IRsend ir_send(IR_TRANSMITTER_PIN);
+uint16_t ir_result[600];
 
 void InitIrTransmitter(){
   ir_send.begin();
 }
-
 #endif //NODEMCU_ALEXA_IOT_IR_REMOTE_INCLUDE_IR_TRANSMITTER_H_
