@@ -18,32 +18,21 @@
 #ifndef NODEMCU_ALEXA_IOT_IR_REMOTE_INCLUDE_UTILS_H_
 #define NODEMCU_ALEXA_IOT_IR_REMOTE_INCLUDE_UTILS_H_
 
-#include <IRutils.h>
 #include <IRrecv.h>
+#include <IRutils.h>
+#include "config.h"
+#include "http-client.h"
 
 /**
  * Gets the infrared signal associated with the specified switch.
- * @param switch_name Switch name.
+ * @param switch_id Switch id.
  * @return Infrared signal as a string.
  */
-const char *GetSignalData(const char *switch_name) {
-  int http_response;
-  String requested_data; // TODO: lookup for static string arduino
-
+const char *GetSignalData(const char *switch_id) {
   String url(API_SWITCH_URL);
-  url += switch_name;
+  url += switch_id;
 
-  http_client.begin(wifi_client, url);
-  http_client.addHeader("Content-Type", F("text/plain"));
-  DEBUG_PRINTLN(cookie_token);
-  http_client.addHeader("Cookie", cookie_token);
-
-  http_response = http_client.GET();
-  if (http_response == 200) {
-	requested_data = http_client.getString();
-  }
-  http_client.end();
-  return requested_data.c_str();
+  return HttpGet(url.c_str());
 }
 
 /**
@@ -66,12 +55,12 @@ uint16_t GetSignalLength(const char *data) {
  * @param result Infrared signal as a dynamically allocated uint16_t array.
  * @param length Infrared signal length.
  */
-void StringSignalToRaw(const char *data, uint16_t *&result, uint16_t &length) {
+void StringSignalToRaw(const char *&data, uint16_t *result, uint16_t &length) {
   unsigned int result_index = 0;
 
   length = GetSignalLength(data);
-  free(result);
-  result = (uint16_t *)malloc(sizeof(uint16_t) * length);
+//  free(result);
+//  result = (uint16_t *)malloc(sizeof(uint16_t) * length);
 
   char *data_copy = strdup(data);
   char *token = strtok(data_copy, "]");
@@ -84,7 +73,7 @@ void StringSignalToRaw(const char *data, uint16_t *&result, uint16_t &length) {
 }
 
 /**
- * Converts the infrared signal from a raw array to a string.
+ * Converts the infrared signal from a raw array to a string with [length] at the beginning.
  * @param results The infrared signal.
  * @return The infrared signal as a string.
  */
