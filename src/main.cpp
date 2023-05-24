@@ -1,39 +1,21 @@
-/**
- * NodeMCU Alexa IOT Infrared Remote
- *
- * Convert old devices that are not compatible
- * with Alexa into compatible ones using infrared
- * signals.
- *
- * NodeMCU IOT Platform
- *
- * @file main.cpp
- *
- * @brief The file that handles the main program.
- *
- * @date July 11, 2022
- *
- * @author Vlad-Marian Lupu
- */
-
-#include <Arduino.h>
-#include "arduino-config.h"
+#include "http-client.h"
 #include "http-server.h"
-#include "iot-cloud-connection.h"
-#include "ir-receive.h"
+#include "arduino-iot-cloud.h"
 #include "ir-transmitter.h"
+#include "restapi-services.h"
+#include "ir-receiver.h"
 
-extern bool is_receiving;
+//extern bool is_receiving;
 
 void setup() {
-  delay(1000);
   Serial.begin(BAUD_RATE);
-  InitIotCloud();
-  InitIrReceive();
+  InitIrReceiver();
+  InitHttpClient();
   InitHttpServer();
+  InitArduinoIotCloud();
   InitIrTransmitter();
 
-  LoginToApi(REST_API_USERNAME, REST_API_PASSWORD, API_LOGIN_URL);
+  ApiAuth(REST_API_USERNAME, REST_API_PASSWORD, API_LOGIN_URL);
 }
 
 void loop() {
