@@ -30,4 +30,5 @@ add_custom_target(
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
-add_executable(Z_DUMMY_TARGET ${SRC_LIST})
+add_executable(Z_DUMMY_TARGET ${SRC_LIST} include/arduino-iot-cloud.h include/config.h include/http-client.h include/http-server.h include/iot-custom-switches.h include/ir-transmitter.h include/utils.h include/restapi-services.h include/ir-receiver.h)
+
