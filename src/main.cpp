@@ -6,7 +6,7 @@
 #include "ir-receiver.h"
 
 //extern bool is_receiving;
-
+#define LED 2
 void setup() {
   Serial.begin(BAUD_RATE);
   InitIrReceiver();
@@ -16,6 +16,7 @@ void setup() {
   InitIrTransmitter();
 
   ApiAuth(REST_API_USERNAME, REST_API_PASSWORD, API_LOGIN_URL);
+  pinMode(LED, OUTPUT);
 }
 
 void loop() {
@@ -24,5 +25,8 @@ void loop() {
 
   if (is_receiving) {
 	HandleIrResults();
+	digitalWrite(LED, LOW);
+  } else {
+	digitalWrite(LED, HIGH);
   }
 }
